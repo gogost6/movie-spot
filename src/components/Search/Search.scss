@@ -1,0 +1,17 @@
+.search-container {
+    display: flex;
+    height: 2.6em;
+
+    input {
+        border-radius: 5px;
+        border: 1px solid black;
+        margin-right: 10px;
+        width: 250px;
+    }
+
+    button {
+        border-radius: 5px;
+        border: 1px solid black;
+        width: 61px;
+    }
+}

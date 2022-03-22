@@ -1,8 +1,10 @@
-ul {
+ul.header {
     list-style-type: none;
     display: flex;
     height: 4em;
     align-items: center;
+    font-size: 17px;
+    background-color: rgb(0, 81, 255);
 
     li:nth-child(0) {
         margin: 10px 50px;
@@ -19,7 +21,7 @@ ul {
     }
 
     a:hover {
-        color: blue;
+        color: white;
     }
 
     .search-li {

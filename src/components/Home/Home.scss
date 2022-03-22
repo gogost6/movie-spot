@@ -1,5 +1,27 @@
-.landing-img {
-    height: 250px;
-    object-fit: contain;
-    width: 100%;
+.home {
+    background-image: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpapercave.com%2Fwp%2Fwp3160287.jpg&f=1&nofb=1');
+    height: 99vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: flex-end;
+
+    button {
+        margin-top: 40px;
+        margin-right: 40px;
+        padding: 0 5px;
+    }
+}
+
+.favorites-container {
+    margin: 5% 10%;
+    height: 260px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .img-container {
+        display: flex;
+        justify-content: space-between;
+    }
 }

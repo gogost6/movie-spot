@@ -42,10 +42,47 @@ async function getAllUsers() {
     return users;
 }
 
+async function addMovie(email, body) {
+    // const user = await User.findOne({email});
+    const record = await User.findOneAndUpdate(
+        email,
+        { $push: { movies: body } },
+        { safe: true, multi: true, new: true }
+    );
+
+    return await record.save();
+}
+
+async function addToFavorite(email, name, bool) {
+    const record = await User.findOneAndUpdate(
+        {
+            email: email,
+            'movies.name': name
+        },
+        {
+            $set: {
+                'movies.$.favorite': bool
+            }
+        },
+        null,
+        (err) => {
+            if (err) {
+                console.log('Error:', err)
+            } else {
+                console.log('Updated')
+            }
+            process.exit(0)
+        }).clone().catch(function (err) { console.log(err) });
+
+    return record;
+}
+
 module.exports = {
     createUser,
     getUserByEmail,
     getAllUsers,
     getUserByUsername,
-    updateUser
+    updateUser,
+    addMovie,
+    addToFavorite
 };

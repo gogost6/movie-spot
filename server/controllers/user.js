@@ -47,7 +47,7 @@ router.post(
         }),
     async (req, res) => {
         try {
-            const { email, username, telephone, password } = req.body;
+            const { email, username, password } = req.body;
             const errors = Object.values(validationResult(req).mapped());
 
             if (errors.length > 0) {
@@ -278,5 +278,30 @@ router.get("/free-username/:username", async (req, res) => {
 
 router.get("/free-email/:email", async (req, res) => {
     res.json(!!(await userService.getUserByEmail(req.params.email)));
+});
+
+router.post("/add-movie", async (req, res) => {
+    // the obj should have name, rating, favorite, notes
+    const { email, ...obj } = req.body;
+    const record = await userService.addMovie(email, obj);
+    res.json(record);
+});
+
+router.post("/favorites/add", async (req, res) => {
+    // we need with the req the email for the query
+    // the name of the film in movies array
+    // Bool -> true
+    const { email, name } = req.body;
+    const record = await userService.addToFavorite(email, name, true);
+    res.json(record);
+});
+
+router.post("/favorites/remove", async (req, res) => {
+    // we need with the req the email for the query
+    // the name of the film in movies array
+    // Bool -> false
+    const { email, name } = req.body;
+    const record = await userService.addToFavorite(email, name, false);
+    res.json(record);
 });
 module.exports = router;

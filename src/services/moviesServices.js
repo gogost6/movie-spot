@@ -1,4 +1,4 @@
-let baseUrl = '/api/movies';
+let baseUrl = 'http://localhost:5000/movies';
 
 export const addMovie = async (data) => {
     // in the data we need ---> email and name, rating, favorite, notes

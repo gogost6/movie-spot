@@ -45,13 +45,13 @@ const userSlice = createSlice({
             }
             localStorage.setItem('user', JSON.stringify(state.value));
         },
-        logout: (state, action) => {
+        userLogout: (state, action) => {
             state.value = initialState.value;
             localStorage.setItem('user', JSON.stringify(state.value));
         },
     }
 });
 
-export const { userAuthentication, logout, getUser } = userSlice.actions;
+export const { userAuthentication, userLogout, getUser } = userSlice.actions;
 
 export default userSlice.reducer;

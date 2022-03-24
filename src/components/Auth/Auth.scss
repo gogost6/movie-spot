@@ -37,5 +37,23 @@
                 color: black;
             }
         }
+
+        p {
+            font-size: 12px;
+            margin: 10px 0;
+        }
+
+        p.error {
+            text-align: center;
+            background-color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            color: red;
+        }
+
+        p.error.hide {
+            animation: hide 0s 3s forwards;
+        }
     }
 }
+

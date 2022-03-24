@@ -76,8 +76,7 @@ router.post(
                 _id: user._id,
                 email: user.email,
                 username: user.username,
-                createdBurgirs: user.createdBurgirs,
-                likedBurgirs: user.likedBurgirs
+                movies: user.movies
             };
             const token = jwt.sign(userViewModel, config.TOKEN_SECRET);
 
@@ -122,8 +121,7 @@ router.post(
                         _id: user._id,
                         email: user.email,
                         username: user.username,
-                        createdBurgirs: user.createdBurgirs,
-                        likedBurgirs: user.likedBurgirs
+                        movies: user.movies
                     };
 
                     if (user.isAdmin) {
@@ -194,6 +192,7 @@ router.post(
                 _id: user._id,
                 email: user.email,
                 username: user.username,
+                movies: user.movies
             };
             res.clearCookie(config.COOKIE_NAME);
             const token = jwt.sign(userViewModel, config.TOKEN_SECRET);
@@ -248,13 +247,14 @@ router.post(
             }
 
             const hashedPassword = await bcrypt.hash(newPassword, 10);
-            const userUpdateModel = { username, telephone, email, hashedPassword };
+            const userUpdateModel = { username, email, hashedPassword };
             const user = await userService.updateUser(_id, userUpdateModel);
 
             const userViewModel = {
                 _id: user._id,
                 email: user.email,
                 username: user.username,
+                movies: user.movies
             };
             res.clearCookie(config.COOKIE_NAME);
             const token = jwt.sign(userViewModel, config.TOKEN_SECRET);

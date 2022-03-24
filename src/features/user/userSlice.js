@@ -52,6 +52,6 @@ const userSlice = createSlice({
     }
 });
 
-export const { userAuthentication, logout, addToLiked, removeFromLiked, getUser, addBurgirToUserModel, removeBurgirFromUserModel } = userSlice.actions;
+export const { userAuthentication, logout, getUser } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -287,7 +287,7 @@ router.post("/add-movie", async (req, res) => {
     res.json(record);
 });
 
-router.post("/favorites/add", async (req, res) => {
+router.put("/favorites/add", async (req, res) => {
     // we need with the req the email for the query
     // the name of the film in movies array
     // Bool -> true
@@ -296,7 +296,7 @@ router.post("/favorites/add", async (req, res) => {
     res.json(record);
 });
 
-router.post("/favorites/remove", async (req, res) => {
+router.put("/favorites/remove", async (req, res) => {
     // we need with the req the email for the query
     // the name of the film in movies array
     // Bool -> false
@@ -304,4 +304,23 @@ router.post("/favorites/remove", async (req, res) => {
     const record = await userService.addToFavorite(email, name, false);
     res.json(record);
 });
+
+router.put("/ratings/add", async (req, res) => {
+    // we need with the req the email for the query
+    // the name of the film in movies array
+    // Bool -> true
+    const { email, name, rating } = req.body;
+    const record = await userService.addRating(email, name, rating);
+    res.json(record);
+});
+
+router.put("/ratings/add", async (req, res) => {
+    // we need with the req the email for the query
+    // the name of the film in movies array
+    // Bool -> true
+    const { email, name, rating } = req.body;
+    const record = await userService.addRating(email, name, rating);
+    res.json(record);
+});
+
 module.exports = router;

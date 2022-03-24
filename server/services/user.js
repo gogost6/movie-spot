@@ -71,7 +71,29 @@ async function addToFavorite(email, name, bool) {
             } else {
                 console.log('Updated')
             }
-            process.exit(0)
+        }).clone().catch(function (err) { console.log(err) });
+
+    return record;
+}
+
+async function addRating(email, name, rating) {
+    const record = await User.findOneAndUpdate(
+        {
+            email: email,
+            'movies.name': name
+        },
+        {
+            $set: {
+                'movies.$.rating': rating
+            }
+        },
+        null,
+        (err) => {
+            if (err) {
+                console.log('Error:', err)
+            } else {
+                console.log('Updated')
+            }
         }).clone().catch(function (err) { console.log(err) });
 
     return record;
@@ -84,5 +106,6 @@ module.exports = {
     getUserByUsername,
     updateUser,
     addMovie,
-    addToFavorite
+    addToFavorite,
+    addRating
 };

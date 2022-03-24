@@ -43,7 +43,7 @@ async function getAllUsers() {
 }
 
 async function addMovie(email, body) {
-    // const user = await User.findOne({email});
+    // body == { name: "FF9", rating: 0, notes:"", favorite: false }
     const record = await User.findOneAndUpdate(
         email,
         { $push: { movies: body } },

@@ -308,18 +308,18 @@ router.put("/favorites/remove", async (req, res) => {
 router.put("/ratings/add", async (req, res) => {
     // we need with the req the email for the query
     // the name of the film in movies array
-    // Bool -> true
+    // rating -> number
     const { email, name, rating } = req.body;
     const record = await userService.addRating(email, name, rating);
     res.json(record);
 });
 
-router.put("/ratings/add", async (req, res) => {
+router.put("/notes/add", async (req, res) => {
     // we need with the req the email for the query
     // the name of the film in movies array
-    // Bool -> true
-    const { email, name, rating } = req.body;
-    const record = await userService.addRating(email, name, rating);
+    // notes -> string
+    const { email, name, notes } = req.body;
+    const record = await userService.addNotes(email, name, notes);
     res.json(record);
 });
 

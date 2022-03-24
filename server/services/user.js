@@ -99,6 +99,29 @@ async function addRating(email, name, rating) {
     return record;
 }
 
+async function addNotes(email, name, notes) {
+    const record = await User.findOneAndUpdate(
+        {
+            email: email,
+            'movies.name': name
+        },
+        {
+            $set: {
+                'movies.$.notes': notes
+            }
+        },
+        null,
+        (err) => {
+            if (err) {
+                console.log('Error:', err)
+            } else {
+                console.log('Updated')
+            }
+        }).clone().catch(function (err) { console.log(err) });
+
+    return record;
+}
+
 module.exports = {
     createUser,
     getUserByEmail,
@@ -107,5 +130,6 @@ module.exports = {
     updateUser,
     addMovie,
     addToFavorite,
-    addRating
+    addRating, 
+    addNotes
 };

@@ -16,7 +16,7 @@ const Search = () => {
         } else if (filmTitle !== '' && splited.length === 1) {
             setInput(filmTitle);
         }
-    }, [location]);
+    }, [location.pathname]);
 
     const onClick = (e) => {
         e.preventDefault()

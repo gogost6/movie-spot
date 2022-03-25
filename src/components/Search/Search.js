@@ -16,21 +16,22 @@ const Search = () => {
         } else if (filmTitle !== '' && splited.length === 1) {
             setInput(filmTitle);
         }
-    }, [location.pathname]);
+    }, [location.search]);
 
-    const onClick = (e) => {
-        e.preventDefault()
+    const onSubmit = (e) => {
+        e.preventDefault();
         navigate(`/search?name=${input}`);
     }
 
     return (
-        <div className="search-container">
+        <form className="search-container" onSubmit={onSubmit}>
             <input className="input" type="text"
                 placeholder="Search by movie title..."
                 value={input}
+                name="title"
                 onChange={(e) => { setInput(e.target.value) }} />
-            <button onClick={onClick}>Search</button>
-        </div>
+            <button>Search</button>
+        </form>
     );
 }
 

@@ -4,7 +4,8 @@
     width: 25%;
     margin: 100px auto;
     padding: 3%;
-    background-color: rgb(0, 89, 255);
+    background: rgb(41,203,193);
+    background: linear-gradient(90deg, rgba(41,203,193,1) 0%, rgba(76,95,187,1) 52%, rgba(169,127,236,1) 100%); 
     border-radius: 5px;
 
     form {

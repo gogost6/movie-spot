@@ -12,9 +12,8 @@ import { createSlice } from '@reduxjs/toolkit';
 let initialState = {
     value: {
         searchedMovies: [],
-        movieDetails: {
-            
-        }
+        movieDetails: {},
+        popularMovies: []
     }
 };
 
@@ -27,10 +26,13 @@ const moviesSlice = createSlice({
         },
         addMovieDetails: (state, action) => {
             state.value.movieDetails = action.payload;
+        },
+        addPopular: (state, action) => {
+            state.value.popularMovies = action.payload;
         }
     }
 });
 
-export const { addMovies, addMovieDetails } = moviesSlice.actions;
+export const { addMovies, addMovieDetails, addPopular } = moviesSlice.actions;
 
 export default moviesSlice.reducer;

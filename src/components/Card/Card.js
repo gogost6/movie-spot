@@ -1,10 +1,68 @@
 import "./Card.scss";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addFavoriteAndPushRedux, addFavoriteRedux, removeFavoriteRedux, userAuthentication } from "../../features/user/userSlice";
+import { addMovie, favoriteAdd, favoriteRemove } from "../../services/moviesServices";
+import { useEffect, useState } from "react";
 
 const Card = ({ details }) => {
+    const dispatch = useDispatch();
     const searchedMovies = useSelector(state => state.movies.value.searchedMovies);
     const movieDetails = useSelector(state => state.movies.value.movieDetails);
+    const user = useSelector(state => state.user.value);
+    const [isFavoriteState, setIsFavoriteState] = useState(false);
+    const [isMovieInProfile, setIsMovieInProfile] = useState(false);
+    const foundedFilm = user.movies.find(x => x.name === movieDetails.original_title);
+
+    useEffect(() => {
+        if (foundedFilm) {
+            console.log(foundedFilm.favorite);
+            foundedFilm.favorite == true ? setIsFavoriteState(true) : setIsFavoriteState(false);
+            setIsMovieInProfile(true);
+        } else {
+            setIsMovieInProfile(false);
+        }
+    }, [user.movies, foundedFilm]);
+
+    const addToFavoriteBtn = (e, name) => {
+        e.preventDefault();
+        const reqData = {
+            email: user.email,
+            name,
+            rating: 0,
+            favorite: true,
+            notes: ''
+        }
+
+        if (!isMovieInProfile) {
+            addMovie(reqData)
+                .then(res => console.log(res))
+                .catch(err => console.log(err));
+
+            dispatch(addFavoriteAndPushRedux({
+                name: movieDetails.original_title,
+                rating: 0,
+                favorite: true,
+                notes: ''
+            }))
+        } else {
+            const foundedIndex = user.movies.findIndex(x => x.name == name);
+            favoriteAdd({ email: user.email, name })
+                .then(res => console.log(res))
+                .catch(err => console.log(err));
+
+            dispatch(addFavoriteRedux(foundedIndex));
+        }
+    }
+
+    const removeFromFavoriteBtn = (e, name) => {
+        const foundedIndex = user.movies.findIndex(x => x.name == name);
+
+        favoriteRemove({ email: user.email, name })
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
+        dispatch(removeFavoriteRedux(foundedIndex));
+    }
 
     if (details && movieDetails.id) {
         let genres = movieDetails.genres.map(x => x.name).join(', ');
@@ -18,7 +76,9 @@ const Card = ({ details }) => {
                 <p>{genres} | {movieDetails.runtime} min</p>
                 <p>{movieDetails.overview}</p>
                 <a href={movieDetails.homepage} target="_blank">Visit official site</a>
-                <button>Add to favourite</button>
+                {isFavoriteState
+                    ? <button onClick={e => removeFromFavoriteBtn(e, movieDetails.original_title)}>Remove from favourite</button>
+                    : <button onClick={e => addToFavoriteBtn(e, movieDetails.original_title)}>Add to favourite</button>}
             </div>
         </div>)
     } else {

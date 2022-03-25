@@ -18,6 +18,7 @@ function App() {
   useEffect(() => {
     getUser()
       .then(res => {
+        console.log(res);
         dispatch(userAuthentication(res));
       })
       .catch((err) => {

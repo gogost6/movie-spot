@@ -49,7 +49,7 @@ export const favoriteAdd = async (data) => {
 export const favoriteRemove = async (data) => {
     // we need email, name
 
-    const response = await fetch(`${baseUrl}/favorites/add`, {
+    const response = await fetch(`${baseUrl}/favorites/remove`, {
         method: 'PUT',
         headers: {
             'content-type': 'application/json'

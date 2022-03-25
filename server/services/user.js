@@ -64,7 +64,7 @@ async function addToFavorite(email, name, bool) {
                 'movies.$.favorite': bool
             }
         },
-        null,
+        { new: true },
         (err) => {
             if (err) {
                 console.log('Error:', err)
@@ -87,7 +87,7 @@ async function addRating(email, name, rating) {
                 'movies.$.rating': rating
             }
         },
-        null,
+        { new: true },
         (err) => {
             if (err) {
                 console.log('Error:', err)
@@ -110,7 +110,7 @@ async function addNotes(email, name, notes) {
                 'movies.$.notes': notes
             }
         },
-        null,
+        { new: true },
         (err) => {
             if (err) {
                 console.log('Error:', err)
@@ -130,6 +130,6 @@ module.exports = {
     updateUser,
     addMovie,
     addToFavorite,
-    addRating, 
+    addRating,
     addNotes
 };

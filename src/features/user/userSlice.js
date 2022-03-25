@@ -49,9 +49,20 @@ const userSlice = createSlice({
             state.value = initialState.value;
             localStorage.setItem('user', JSON.stringify(state.value));
         },
+        addFavoriteAndPushRedux: (state, action) => {
+            state.value.movies.push(action.payload);
+        },
+        addFavoriteRedux: (state, action) => {
+            const index = action.payload;
+            state.value.movies[index].favorite = true;
+        },
+        removeFavoriteRedux: (state, action) => {
+            const index = action.payload;
+            state.value.movies[index].favorite = false;
+        }
     }
 });
 
-export const { userAuthentication, userLogout, getUser } = userSlice.actions;
+export const { userAuthentication, userLogout, getUser, addFavoriteAndPushRedux, addFavoriteRedux, removeFavoriteRedux } = userSlice.actions;
 
 export default userSlice.reducer;

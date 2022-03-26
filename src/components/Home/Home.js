@@ -8,6 +8,8 @@ import "./Home.scss";
 const Home = () => {
     const dispatch = useDispatch();
     const popularMovies = useSelector(state => state.movies.value.popularMovies);
+    const userMovies = useSelector(state => state.user.value.movies);
+    const favoriteOnly = userMovies.filter(x => x.favorite === true);
 
     useEffect(() => {
         getPopular()
@@ -34,10 +36,13 @@ const Home = () => {
             <div className="favorites-container">
                 <h2>My Favorites</h2>
                 <div className="img-container">
-                    <img width="200px" height="200px" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.CBGvX0Yqcc7nWM3hxqhQGQHaEo%26pid%3DApi&f=1" alt="img" />
-                    <img width="200px" height="200px" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.CBGvX0Yqcc7nWM3hxqhQGQHaEo%26pid%3DApi&f=1" alt="img" />
-                    <img width="200px" height="200px" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.CBGvX0Yqcc7nWM3hxqhQGQHaEo%26pid%3DApi&f=1" alt="img" />
-                    <img width="200px" height="200px" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.CBGvX0Yqcc7nWM3hxqhQGQHaEo%26pid%3DApi&f=1" alt="img" />
+                    {favoriteOnly.length > 0
+                        ? favoriteOnly.map(x =>
+                            <Link to={`/movies/${x.id}`}>
+                                <img key={x.id} width="200px" height="200px"
+                                    src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${x.poster_path}`} />
+                            </Link>)
+                        : ''}
                 </div>
             </div>
         </>

@@ -1,7 +1,7 @@
 import "./Card.scss";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addFavoriteAndPushRedux, addFavoriteRedux, removeFavoriteRedux, userAuthentication } from "../../features/user/userSlice";
+import { addFavoriteAndPushRedux, addFavoriteRedux, removeFavoriteRedux } from "../../features/user/userSlice";
 import { addMovie, favoriteAdd, favoriteRemove } from "../../services/moviesServices";
 import { useEffect, useState } from "react";
 
@@ -31,7 +31,9 @@ const Card = ({ details }) => {
             name,
             rating: 0,
             favorite: true,
-            notes: ''
+            notes: '',
+            poster_path: movieDetails.poster_path,
+            id: movieDetails.id
         }
 
         if (!isMovieInProfile) {
@@ -43,7 +45,9 @@ const Card = ({ details }) => {
                 name: movieDetails.original_title,
                 rating: 0,
                 favorite: true,
-                notes: ''
+                notes: '',
+                poster_path: movieDetails.poster_path,
+                id: movieDetails.id
             }))
         } else {
             const foundedIndex = user.movies.findIndex(x => x.name == name);

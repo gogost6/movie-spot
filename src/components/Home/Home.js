@@ -19,8 +19,8 @@ const Home = () => {
 
     const onClick = (e) => {
         e.preventDefault();
-        document.body.scrollTop = 452;
-        document.documentElement.scrollTop = 452;
+        document.body.scrollTop = 510;
+        document.documentElement.scrollTop = 510;
     }
 
     return (

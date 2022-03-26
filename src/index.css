@@ -37,7 +37,7 @@ button {
 }
 
 button:hover {
-    background-color: whitesmoke;
+    background-color: rgb(221, 216, 216);
 }
 
 @keyframes hide {

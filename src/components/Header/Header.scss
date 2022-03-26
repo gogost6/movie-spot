@@ -1,11 +1,13 @@
 ul.header {
+    position: absolute;
+    top: 0;
+    width: 100%;
     list-style-type: none;
     display: flex;
     height: 4em;
     align-items: center;
     font-size: 17px;
-    background: rgb(7,59,94);
-    background: linear-gradient(90deg, rgba(7,59,94,1) 0%, rgba(0,134,255,1) 47%, rgba(1,55,101,1) 100%);
+    color: black;
 
     li:nth-child(0) {
         margin: 10px 50px;
@@ -22,12 +24,13 @@ ul.header {
     }
 
     a:hover {
-        color: white;
+        color: red;
     }
 
     .search-li {
         flex-grow: 1;
         display: flex;
         justify-content: flex-end;
+        color: white;
     }
 }

@@ -1,13 +1,12 @@
 .home {
-    background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpapercave.com%2Fwp%2Fwp3160287.jpg&f=1&nofb=1");
+    background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.hdwallpapers.in%2Fdownload%2Fthe_meg_2018_movie-HD.jpg&f=1&nofb=1");
     height: 99vh;
     background-size: cover;
     background-repeat: no-repeat;
     display: flex;
-    // justify-content: flex-end;
 
-    .popular-img-wrapper {
-        margin: 100px auto;
+    .home-img-wrapper {
+        margin: 180px auto;
 
         img {
             margin: 0 35px;
@@ -28,8 +27,11 @@
 }
 
 .favorites-container {
-    margin: 5% 10%;
-    height: 260px;
+    height: 99vh;
+    background: url("https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwallup.net%2Fwp-content%2Fuploads%2F2016%2F01%2F147474-space-Interstellar_movie-movies.jpg&f=1&nofb=1");
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -44,4 +46,20 @@
             object-fit: contain;
         }
     }
+}
+
+.home.two {
+    background: url("https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwallup.net%2Fwp-content%2Fuploads%2F2016%2F01%2F147474-space-Interstellar_movie-movies.jpg&f=1&nofb=1");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.most-popular {
+    margin: 0;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 10%;
+    left: 50%;
+    height: 150px;
+    width: 150px;
 }

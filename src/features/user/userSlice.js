@@ -49,7 +49,7 @@ const userSlice = createSlice({
             state.value = initialState.value;
             localStorage.setItem('user', JSON.stringify(state.value));
         },
-        addFavoriteAndPushRedux: (state, action) => {
+        pushMovie: (state, action) => {
             state.value.movies.push(action.payload);
         },
         addFavoriteRedux: (state, action) => {
@@ -59,10 +59,25 @@ const userSlice = createSlice({
         removeFavoriteRedux: (state, action) => {
             const index = action.payload;
             state.value.movies[index].favorite = false;
-        }
+        },
+        addRatingRedux: (state, action) => {
+            const index = action.payload.index;
+            state.value.movies[index].rating = action.payload.rating;
+        },
+        addNotesRedux: (state, action) => {
+            const index = action.payload.index;
+            state.value.movies[index].notes = action.payload.notes;
+        },
     }
 });
 
-export const { userAuthentication, userLogout, getUser, addFavoriteAndPushRedux, addFavoriteRedux, removeFavoriteRedux } = userSlice.actions;
+export const { userAuthentication,
+    userLogout,
+    getUser,
+    pushMovie,
+    addFavoriteRedux,
+    removeFavoriteRedux,
+    addRatingRedux,
+    addNotesRedux } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -1,28 +1,124 @@
 import "./Card.scss";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addFavoriteAndPushRedux, addFavoriteRedux, removeFavoriteRedux } from "../../features/user/userSlice";
-import { addMovie, favoriteAdd, favoriteRemove } from "../../services/moviesServices";
+import { pushMovie, addFavoriteRedux, removeFavoriteRedux, addRatingRedux, addNotesRedux } from "../../features/user/userSlice";
+import { addMovie, favoriteAdd, favoriteRemove, notesAdd, ratingsAdd } from "../../services/moviesServices";
 import { useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "@fortawesome/free-solid-svg-icons";
+import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro';
+import { getMovieDetails } from "../../services/openApiServices";
+import { addMovieDetails } from "../../features/user/moviesSlice";
 
 const Card = ({ details }) => {
+    const location = useLocation();
     const dispatch = useDispatch();
     const searchedMovies = useSelector(state => state.movies.value.searchedMovies);
     const movieDetails = useSelector(state => state.movies.value.movieDetails);
+    const [movieRating, setMovieRating] = useState(0);
     const user = useSelector(state => state.user.value);
     const [isFavoriteState, setIsFavoriteState] = useState(false);
     const [isMovieInProfile, setIsMovieInProfile] = useState(false);
+    const [notes, setNotes] = useState('');
     const foundedFilm = user.movies.find(x => x.name === movieDetails.original_title);
+    const id = location.pathname.split('/')[2];
+
+    useEffect(() => {
+        getMovieDetails(id)
+            .then(res => dispatch(addMovieDetails(res)))
+            .catch(err => console.log(err));
+    }, [])
 
     useEffect(() => {
         if (foundedFilm) {
-            console.log(foundedFilm.favorite);
+            setMovieRating(foundedFilm.rating);
             foundedFilm.favorite == true ? setIsFavoriteState(true) : setIsFavoriteState(false);
+            setNotes(foundedFilm.notes);
             setIsMovieInProfile(true);
         } else {
             setIsMovieInProfile(false);
         }
     }, [user.movies, foundedFilm]);
+
+    const onNotesSubmit = (e) => {
+        e.preventDefault();
+        const index = user.movies.findIndex(x => x.name == movieDetails.original_title);
+        let formData = new FormData(e.currentTarget);
+        let notes = Object.fromEntries(formData).notes;
+
+        const reqData = {
+            email: user.email,
+            name: movieDetails.original_title,
+            rating: 0,
+            favorite: false,
+            notes,
+            poster_path: movieDetails.poster_path,
+            id: movieDetails.id
+        }
+
+        if (!isMovieInProfile) {
+            addMovie(reqData)
+                .then(res => console.log(res))
+                .catch(err => console.log(err));
+
+            dispatch(pushMovie({
+                name: movieDetails.original_title,
+                rating: 0,
+                favorite: false,
+                notes,
+                poster_path: movieDetails.poster_path,
+                id: movieDetails.id
+            }))
+        } else {
+            console.log(notes);
+            notesAdd({ email: user.email, name: movieDetails.original_title, notes })
+                .then(res => console.log(res))
+                .catch(err => console.log(err));
+            dispatch(addNotesRedux({ index, notes }))
+        }
+    }
+
+    const onStarClick = (e, rating) => {
+        const index = user.movies.findIndex(x => x.name == movieDetails.original_title);
+
+        const reqData = {
+            email: user.email,
+            name: movieDetails.original_title,
+            rating: rating,
+            favorite: false,
+            notes: '',
+            poster_path: movieDetails.poster_path,
+            id: movieDetails.id
+        }
+
+        if (!isMovieInProfile) {
+            addMovie(reqData)
+                .then(res => console.log(res))
+                .catch(err => console.log(err));
+
+            dispatch(pushMovie({
+                name: movieDetails.original_title,
+                rating: rating,
+                favorite: false,
+                notes: '',
+                poster_path: movieDetails.poster_path,
+                id: movieDetails.id
+            }))
+        } else {
+            ratingsAdd({ email: user.email, name: movieDetails.original_title, rating })
+                .then(res => console.log(res))
+                .catch(err => console.log(err));
+            dispatch(addRatingRedux({ index, rating }))
+        }
+    }
+
+    const checkRating = (rating, number) => {
+        if (rating >= number) {
+            return "yellow";
+        } else {
+            return "white";
+        }
+    }
 
     const addToFavoriteBtn = (e, name) => {
         e.preventDefault();
@@ -41,7 +137,7 @@ const Card = ({ details }) => {
                 .then(res => console.log(res))
                 .catch(err => console.log(err));
 
-            dispatch(addFavoriteAndPushRedux({
+            dispatch(pushMovie({
                 name: movieDetails.original_title,
                 rating: 0,
                 favorite: true,
@@ -71,18 +167,36 @@ const Card = ({ details }) => {
     if (details && movieDetails.id) {
         let genres = movieDetails.genres.map(x => x.name).join(', ');
 
-        return (<div className="card" key={movieDetails.id}>
-            <Link to={`/movies/${movieDetails.id}`} className="card-img-wrap">
-                <img src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${movieDetails.poster_path}`} alt="img" />
-            </Link>
-            <div className="card-content">
-                <h2>{movieDetails.original_title} ({movieDetails.release_date.split('-')[0]})</h2>
-                <p>{genres} | {movieDetails.runtime} min</p>
-                <p>{movieDetails.overview}</p>
-                <a href={movieDetails.homepage} target="_blank">Visit official site</a>
-                {isFavoriteState
-                    ? <button onClick={e => removeFromFavoriteBtn(e, movieDetails.original_title)}>Remove from favourite</button>
-                    : <button onClick={e => addToFavoriteBtn(e, movieDetails.original_title)}>Add to favourite</button>}
+        return (<div className="card-container">
+            <div className="card" key={movieDetails.id}>
+                <Link to={`/movies/${movieDetails.id}`} className="card-img-wrap">
+                    <img src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${movieDetails.poster_path}`} alt="img" />
+                </Link>
+                <div className="card-content">
+                    <h2>{movieDetails.original_title} ({movieDetails.release_date.split('-')[0]})</h2>
+                    <p>{genres} | {movieDetails.runtime} min</p>
+                    <p>{movieDetails.overview}</p>
+                    <a href={movieDetails.homepage} target="_blank">Visit official site</a>
+                    {isFavoriteState
+                        ? <button onClick={e => removeFromFavoriteBtn(e, movieDetails.original_title)}>Remove from favourite</button>
+                        : <button onClick={e => addToFavoriteBtn(e, movieDetails.original_title)}>Add to favourite</button>}
+                </div>
+            </div>
+            <div className="review">
+                <h2>Your Review</h2>
+                <div className="stars-container">
+                    <FontAwesomeIcon onClick={e => onStarClick(e, 1)} icon={solid('Star')} size="xl" color={checkRating(movieRating, 1)} stroke="#000000" fill="black" strokeWidth={28} cursor="pointer" />
+                    <FontAwesomeIcon onClick={e => onStarClick(e, 2)} icon={solid('Star')} size="xl" color={checkRating(movieRating, 2)} stroke="#000000" fill="black" strokeWidth={28} cursor="pointer" />
+                    <FontAwesomeIcon onClick={e => onStarClick(e, 3)} icon={solid('Star')} size="xl" color={checkRating(movieRating, 3)} stroke="#000000" fill="black" strokeWidth={28} cursor="pointer" />
+                    <FontAwesomeIcon onClick={e => onStarClick(e, 4)} icon={solid('Star')} size="xl" color={checkRating(movieRating, 4)} stroke="#000000" fill="black" strokeWidth={28} cursor="pointer" />
+                    <FontAwesomeIcon onClick={e => onStarClick(e, 5)} icon={solid('Star')} size="xl" color={checkRating(movieRating, 5)} stroke="#000000" fill="black" strokeWidth={28} cursor="pointer" />
+                </div>
+                <form className="notes-form" onSubmit={onNotesSubmit}>
+                    <textarea name="notes" id="notes" cols="60"
+                        rows="10" value={notes}
+                        onChange={e => setNotes(e.target.value)}></textarea>
+                    <button>Submit</button>
+                </form>
             </div>
         </div>)
     } else {

@@ -1,5 +1,5 @@
 .home {
-    background-image: url('https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpapercave.com%2Fwp%2Fwp3160287.jpg&f=1&nofb=1');
+    background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallpapercave.com%2Fwp%2Fwp3160287.jpg&f=1&nofb=1");
     height: 99vh;
     background-size: cover;
     background-repeat: no-repeat;
@@ -19,7 +19,7 @@
         height: 350px;
         object-fit: contain;
     }
-    
+
     button {
         position: absolute;
         left: 90%;
@@ -37,5 +37,11 @@
     .img-container {
         display: flex;
         justify-content: space-between;
+
+        img {
+            width: 200px;
+            height: 350px;
+            object-fit: contain;
+        }
     }
 }

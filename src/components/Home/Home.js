@@ -38,8 +38,8 @@ const Home = () => {
                 <div className="img-container">
                     {favoriteOnly.length > 0
                         ? favoriteOnly.map(x =>
-                            <Link to={`/movies/${x.id}`}>
-                                <img key={x.id} width="200px" height="200px"
+                            <Link key={x.id} to={`/movies/${x.id}`}>
+                                <img width="200px" height="200px"
                                     src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${x.poster_path}`} />
                             </Link>)
                         : ''}

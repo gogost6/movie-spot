@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { addPopular } from "../../features/user/moviesSlice";
+import { addPopular } from "../../features/movies/moviesSlice";
 import { getPopular } from "../../services/openApiServices";
 import "./Home.scss";
 

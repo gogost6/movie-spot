@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import moviesSlice from '../features/user/moviesSlice';
+import moviesSlice from '../features/movies/moviesSlice';
 import userReducer from '../features/user/userSlice';
 
 export const store = configureStore({

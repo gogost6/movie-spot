@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getMovieByTitle } from "../../services/openApiServices";
 import { useDispatch, useSelector } from "react-redux";
-import { addMovies } from "../../features/user/moviesSlice";
+import { addMovies } from "../../features/movies/moviesSlice";
 import { addMovie, favoriteAdd, favoriteRemove } from "../../services/moviesServices";
 import { addFavoriteRedux, pushMovie, removeFavoriteRedux } from "../../features/user/userSlice";
 

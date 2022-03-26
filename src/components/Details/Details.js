@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@fortawesome/free-solid-svg-icons";
 import { solid, regular, brands } from '@fortawesome/fontawesome-svg-core/import.macro';
 import { getMovieDetails } from "../../services/openApiServices";
-import { addMovieDetails } from "../../features/user/moviesSlice";
+import { addMovieDetails } from "../../features/movies/moviesSlice";
 
 const Details = () => {
     const location = useLocation();

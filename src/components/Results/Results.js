@@ -1,8 +1,8 @@
 import "./Results.scss";
 import Search from "../Search/Search";
 import { Link, useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { getMovieByTitle } from "../../services/openApiServices";
+import { useEffect } from "react";
+import { getMovieByTitle, getPopular } from "../../services/openApiServices";
 import { useDispatch, useSelector } from "react-redux";
 import { addMovies } from "../../features/movies/moviesSlice";
 import { addMovie, favoriteAdd, favoriteRemove } from "../../services/moviesServices";
@@ -16,16 +16,29 @@ const Results = () => {
     const searchedMovies = useSelector(state => state.movies.value.searchedMovies);
 
     useEffect(() => {
-        getMovieByTitle(filmTitle)
-            .then(res => {
-                const newArray = res.results.map(x =>
-                    user.movies.find(y =>
-                        y.name === x.original_title && y.favorite === true)
-                        ? { ...x, favorite: true }
-                        : x)
-                dispatch(addMovies(newArray))
-            })
-            .catch(err => console.log(err));
+        if (filmTitle !== '') {
+            getMovieByTitle(filmTitle)
+                .then(res => {
+                    const newArray = res.results.map(x =>
+                        user.movies.find(y =>
+                            y.name === x.original_title && y.favorite === true)
+                            ? { ...x, favorite: true }
+                            : x)
+                    dispatch(addMovies(newArray))
+                })
+                .catch(err => console.log(err));
+        } else {
+            getPopular()
+                .then(res => {
+                    const newArray = res.results.map(x =>
+                        user.movies.find(y =>
+                            y.name === x.original_title && y.favorite === true)
+                            ? { ...x, favorite: true }
+                            : x)
+                    dispatch(addMovies(newArray))
+                })
+                .catch(err => console.log(err))
+        }
 
     }, [location, user.movies])
 

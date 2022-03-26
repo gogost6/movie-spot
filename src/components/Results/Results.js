@@ -87,7 +87,9 @@ const Results = () => {
                     <img src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${x.poster_path}`} alt="img" />
                 </Link>
                 <div className="card-content">
-                    <h2>{x.original_title} ({x.release_date.split('-')[0]})</h2>
+                    <Link to={`/movies/${x.id}`} className="title-link">
+                        <h2>{x.original_title} {x.release_date ? `(${x.release_date.split('-')[0]})` : ''}</h2>
+                    </Link>
                     <p>{x.overview.substr(0, 520)}...</p>
                     <Link to={`/movies/${x.id}`}>Link to details</Link>
                     {x.favorite
@@ -97,7 +99,12 @@ const Results = () => {
             </div>)}
         </div>
     } else {
-        return (<p>Error</p>);
+        return (
+            <div className="results-container">
+                <h1>Search</h1>
+                <Search />
+                <img className="error-img" src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.sitesbay.com%2Ffiles%2F404.gif&f=1&nofb=1" alt="" />
+            </div>);
     }
 }
 

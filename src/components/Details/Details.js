@@ -172,7 +172,7 @@ const Details = () => {
                     <div className="card-content">
                         <h2>{movieDetails.original_title} ({movieDetails.release_date.split('-')[0]})</h2>
                         <p>{genres} | {movieDetails.runtime} min</p>
-                        <p>{movieDetails.overview}</p>
+                        <p>{movieDetails.overview.substr(0, 420)}...</p>
                         <a href={movieDetails.homepage} target="_blank">Visit official site</a>
                         {isFavoriteState
                             ? <button onClick={e => removeFromFavoriteBtn(e, movieDetails.original_title)}>Remove from favourite</button>
@@ -192,7 +192,10 @@ const Details = () => {
                         <textarea name="notes" id="notes" cols="60"
                             rows="10" value={notes}
                             onChange={e => setNotes(e.target.value)}></textarea>
-                        <button>Submit</button>
+                        <div className="notes-btn-wrap">
+                            <button>Submit</button>
+                            <button>Reset</button>
+                        </div>
                     </form>
                 </div>
             </div>

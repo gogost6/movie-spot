@@ -67,6 +67,7 @@ const Results = () => {
 
     if (searchedMovies && searchedMovies.length > 0) {
         return <div className="results-container">
+            <h1>Search</h1>
             <Search />
             {searchedMovies.map(x => <div className="card" key={x.id}>
                 <Link to={`/movies/${x.id}`} className="card-img-wrap">
@@ -74,7 +75,7 @@ const Results = () => {
                 </Link>
                 <div className="card-content">
                     <h2>{x.original_title} ({x.release_date.split('-')[0]})</h2>
-                    <p>{x.overview}</p>
+                    <p>{x.overview.substr(0, 520)}...</p>
                     <Link to={`/movies/${x.id}`}>Link to details</Link>
                     {x.favorite
                         ? <button onClick={e => removeFromFavoriteBtn(e, x.original_title)} >Remove from favourite</button>

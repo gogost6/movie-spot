@@ -23,8 +23,9 @@ code {
 .input {
     border-radius: 5px;
     border: 1px solid black;
-    width: 250px;
+    width: 313px;
     height: 44.2px;
+    font-size: 15px;
 }
 
 button {

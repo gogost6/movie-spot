@@ -40,6 +40,15 @@ const Details = () => {
         }
     }, [user.movies, foundedFilm]);
 
+    const resetBtn = (e) => {
+        e.preventDefault();
+        setNotes('');
+        notesAdd({ email: user.email, name: movieDetails.original_title, notes: '' })
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
+        dispatch(addNotesRedux({ index, notes: '' }))
+    }
+
     const onNotesSubmit = (e) => {
         e.preventDefault();
         let formData = new FormData(e.currentTarget);
@@ -194,7 +203,7 @@ const Details = () => {
                             onChange={e => setNotes(e.target.value)}></textarea>
                         <div className="notes-btn-wrap">
                             <button>Submit</button>
-                            <button>Reset</button>
+                            <button onClick={resetBtn}>Reset</button>
                         </div>
                     </form>
                 </div>

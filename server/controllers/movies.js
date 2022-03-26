@@ -4,7 +4,7 @@ const config = require("../config");
 const jwt = require("jsonwebtoken");
 
 router.post("/add-movie", async (req, res) => {
-    // the obj should have name, rating, favorite, notes
+    // the obj should have name, rating, favorite, notes, poster_path
     const { email, ...obj } = req.body;
     const record = await userService.addMovie(email, obj);
     const userViewModel = {

@@ -1,3 +1,39 @@
+# Project documentation
+
+The purpose of the web site is to find your perfect movie to watch
+with your friend or alone.
+The project is fully working for guests and for registered users.
+You can add favorite ones, rate them and write your private notes.
+When you add a new film to favorites and then register, it will
+automatically be added to your profile! This is also true for
+the notes and the rating.
+
+## How to start it
+
+<ol>
+	<li>git clone https://github.com/gogost6/movie-spot.git</li>
+	<li>npm install</li>
+	<li>npm start (starts the Front-end)</li>
+	<li>cd server && npm start (starts the Back-end)</li>
+</ol>
+
+## Paths
+<ul>
+	<li>"/" is the landing page</li>
+	<li>"/login"</li>
+	<li>"/register"</li>
+	<li>"/movies/634649" is Spiderman details page</li>
+	<li>"/search?name=" searches for the most popular movies</li>
+</ul>
+
+### API
+
+Thanks to the Open Source API of The Movie Database API
+Link: https://developers.themoviedb.org/3/getting-started/introduction
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

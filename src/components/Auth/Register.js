@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { userAuthentication } from "../../features/user/userSlice";
+import { pushMovie, userAuthentication } from "../../features/user/userSlice";
 import { usedEmail, usedUsername, registerUser } from "../../services/authServices";
+import { addMovie } from "../../services/moviesServices";
 import "./Auth.scss";
 
 const Register = () => {
@@ -16,6 +17,8 @@ const Register = () => {
     let [email, setEmail] = useState('');
     let [password, setPassword] = useState('');
     let [repeatPassword, setRepeatPassword] = useState('');
+
+    const user = JSON.parse(localStorage.getItem('user'));
 
     const emailRegex = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 
@@ -40,7 +43,31 @@ const Register = () => {
 
         registerUser(data)
             .then(res => {
-                dispatch(userAuthentication(res));
+                if (user._id === "" && user.movies.length > 0 && res._id !== "") {
+                    let notInProfileMoviesArr = [];
+
+                    for (let index = 0; index < user.movies.length; index++) {
+                        const movieInLocal = user.movies[index];
+                        const foundedInDBIndex = res.movies.findIndex(x => x.name === movieInLocal.name);
+
+                        if (foundedInDBIndex === -1) {
+                            notInProfileMoviesArr.push(movieInLocal);
+                        }
+                    }
+
+                    dispatch(userAuthentication(res));
+
+                    if (notInProfileMoviesArr.length > 0) {
+                        notInProfileMoviesArr.forEach(x => {
+                            addMovie({ email: res.email, ...x })
+                                .then(resp => console.log(resp))
+                                .catch(error => console.log(error))
+                            dispatch(pushMovie(x))
+                        })
+                    }
+                } else {
+                    dispatch(userAuthentication(res));
+                }
                 navigate('/');
             })
             .catch(err => {

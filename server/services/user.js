@@ -45,7 +45,7 @@ async function getAllUsers() {
 async function addMovie(email, body) {
     // body == { name: "FF9", rating: 0, notes:"", favorite: false, poster_path: "", id: 1231 }
     const record = await User.findOneAndUpdate(
-        email,
+        {email},
         { $push: { movies: body } },
         { safe: true, multi: true, new: true }
     );

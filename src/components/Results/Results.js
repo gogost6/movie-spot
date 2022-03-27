@@ -90,7 +90,7 @@ const Results = () => {
                     <Link to={`/movies/${x.id}`} className="title-link">
                         <h2>{x.original_title} {x.release_date ? `(${x.release_date.split('-')[0]})` : ''}</h2>
                     </Link>
-                    <p>{x.overview.substr(0, 520)}...</p>
+                    <p>{x.overview.substr(0, 420)}...</p>
                     <Link to={`/movies/${x.id}`}>Link to details</Link>
                     {x.favorite
                         ? <button onClick={e => removeFromFavoriteBtn(e, x.original_title)} >Remove from favourite</button>

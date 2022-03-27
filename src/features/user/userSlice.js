@@ -46,7 +46,7 @@ const userSlice = createSlice({
                 state.value.isLogged = true;
             }
 
-            if(state.value._id === "" && user._id === "" && user.movies.length > 0) {
+            if(state.value._id === "" && user !== null && user._id === "" && user.movies.length > 0) {
                 state.value = user;
             }
 

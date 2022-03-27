@@ -28,8 +28,8 @@ the notes and the rating.
 
 ### API
 
-Thanks to the Open Source API of The Movie Database API
-Link: https://developers.themoviedb.org/3/getting-started/introduction
+<p>Thanks to the Open Source API of The Movie Database API <br>
+Link: https://developers.themoviedb.org/3/getting-started/introduction</p>
 
 
 

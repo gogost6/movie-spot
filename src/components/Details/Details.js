@@ -36,16 +36,23 @@ const Details = () => {
             setNotes(foundedFilm.notes);
             setIsMovieInProfile(true);
         } else {
+            setMovieRating(0);
+            setIsFavoriteState(false);
+            setNotes('');
             setIsMovieInProfile(false);
         }
-    }, [user.movies, foundedFilm]);
+    }, [user.movies, foundedFilm, movieDetails.original_title]);
 
     const resetBtn = (e) => {
         e.preventDefault();
         setNotes('');
-        notesAdd({ email: user.email, name: movieDetails.original_title, notes: '' })
-            .then(res => console.log(res))
-            .catch(err => console.log(err));
+
+        if (user._id !== '') {
+            notesAdd({ email: user.email, name: movieDetails.original_title, notes: '' })
+                .then(res => console.log(res))
+                .catch(err => console.log(err));
+        }
+
         dispatch(addNotesRedux({ index, notes: '' }))
     }
 
@@ -65,9 +72,11 @@ const Details = () => {
         }
 
         if (!isMovieInProfile) {
-            addMovie(reqData)
-                .then(res => console.log(res))
-                .catch(err => console.log(err));
+            if (user._id !== '') {
+                addMovie(reqData)
+                    .then(res => console.log(res))
+                    .catch(err => console.log(err));
+            }
 
             dispatch(pushMovie({
                 name: movieDetails.original_title,
@@ -78,9 +87,11 @@ const Details = () => {
                 id: movieDetails.id
             }))
         } else {
-            notesAdd({ email: user.email, name: movieDetails.original_title, notes })
-                .then(res => console.log(res))
-                .catch(err => console.log(err));
+            if (user._id !== '') {
+                notesAdd({ email: user.email, name: movieDetails.original_title, notes })
+                    .then(res => console.log(res))
+                    .catch(err => console.log(err));
+            }
             dispatch(addNotesRedux({ index, notes }))
         }
     }
@@ -97,9 +108,11 @@ const Details = () => {
         }
 
         if (!isMovieInProfile) {
-            addMovie(reqData)
-                .then(res => console.log(res))
-                .catch(err => console.log(err));
+            if (user._id !== '') {
+                addMovie(reqData)
+                    .then(res => console.log(res))
+                    .catch(err => console.log(err));
+            }
 
             dispatch(pushMovie({
                 name: movieDetails.original_title,
@@ -110,9 +123,11 @@ const Details = () => {
                 id: movieDetails.id
             }))
         } else {
-            ratingsAdd({ email: user.email, name: movieDetails.original_title, rating })
-                .then(res => console.log(res))
-                .catch(err => console.log(err));
+            if (user._id !== '') {
+                ratingsAdd({ email: user.email, name: movieDetails.original_title, rating })
+                    .then(res => console.log(res))
+                    .catch(err => console.log(err));
+            }
             dispatch(addRatingRedux({ index, rating }))
         }
     }
@@ -138,9 +153,11 @@ const Details = () => {
         }
 
         if (!isMovieInProfile) {
-            addMovie(reqData)
-                .then(res => console.log(res))
-                .catch(err => console.log(err));
+            if (user._id !== '') {
+                addMovie(reqData)
+                    .then(res => console.log(res))
+                    .catch(err => console.log(err));
+            }
 
             dispatch(pushMovie({
                 name: movieDetails.original_title,
@@ -152,9 +169,11 @@ const Details = () => {
             }))
         } else {
             const foundedIndex = user.movies.findIndex(x => x.name == name);
-            favoriteAdd({ email: user.email, name })
-                .then(res => console.log(res))
-                .catch(err => console.log(err));
+            if (user._id !== '') {
+                favoriteAdd({ email: user.email, name })
+                    .then(res => console.log(res))
+                    .catch(err => console.log(err));
+            }
 
             dispatch(addFavoriteRedux(foundedIndex));
         }
@@ -162,10 +181,11 @@ const Details = () => {
 
     const removeFromFavoriteBtn = (e, name) => {
         const foundedIndex = user.movies.findIndex(x => x.name == name);
-
-        favoriteRemove({ email: user.email, name })
-            .then(res => console.log(res))
-            .catch(err => console.log(err));
+        if (user._id !== '') {
+            favoriteRemove({ email: user.email, name })
+                .then(res => console.log(res))
+                .catch(err => console.log(err));
+        }
         dispatch(removeFavoriteRedux(foundedIndex));
     }
 

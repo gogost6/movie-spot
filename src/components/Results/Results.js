@@ -46,9 +46,11 @@ const Results = () => {
         e.preventDefault();
         const foundedIndex = user.movies.findIndex(x => x.name == movie.original_title);
         if (foundedIndex !== -1) {
-            favoriteAdd({ email: user.email, name: movie.original_title })
-                .then(res => console.log(res))
-                .catch(err => console.log(err));
+            if (user._id !== '') {
+                favoriteAdd({ email: user.email, name: movie.original_title })
+                    .then(res => console.log(res))
+                    .catch(err => console.log(err));
+            }
 
             dispatch(addFavoriteRedux(foundedIndex));
         } else {
@@ -61,9 +63,11 @@ const Results = () => {
                 id: movie.id
             }
 
-            addMovie({ email: user.email, ...reqData })
-                .then(res => console.log(res))
-                .catch(err => console.log(err));
+            if (user._id !== '') {
+                addMovie({ email: user.email, ...reqData })
+                    .then(res => console.log(res))
+                    .catch(err => console.log(err));
+            }
 
             dispatch(pushMovie(reqData))
         }
@@ -71,10 +75,12 @@ const Results = () => {
 
     const removeFromFavoriteBtn = (e, name) => {
         const foundedIndex = user.movies.findIndex(x => x.name == name);
+        if (user._id !== '') {
+            favoriteRemove({ email: user.email, name })
+                .then(res => console.log(res))
+                .catch(err => console.log(err));
+        }
 
-        favoriteRemove({ email: user.email, name })
-            .then(res => console.log(res))
-            .catch(err => console.log(err));
         dispatch(removeFavoriteRedux(foundedIndex));
     }
 

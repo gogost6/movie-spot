@@ -35,14 +35,21 @@ const userSlice = createSlice({
                     isLogged: true
                 };
             }
+            localStorage.setItem('user', JSON.stringify(state.value));
         },
         userAuthentication: (state, action) => {
+            const user = JSON.parse(localStorage.getItem('user'));
             if (action.payload.isLogged === false) {
                 state.value.isLogged = false;
             } else {
                 state.value = action.payload;
                 state.value.isLogged = true;
             }
+
+            if(state.value._id === "" && user._id === "" && user.movies.length > 0) {
+                state.value = user;
+            }
+
             localStorage.setItem('user', JSON.stringify(state.value));
         },
         userLogout: (state, action) => {
@@ -51,22 +58,27 @@ const userSlice = createSlice({
         },
         pushMovie: (state, action) => {
             state.value.movies.push(action.payload);
+            localStorage.setItem('user', JSON.stringify(state.value));
         },
         addFavoriteRedux: (state, action) => {
             const index = action.payload;
             state.value.movies[index].favorite = true;
+            localStorage.setItem('user', JSON.stringify(state.value));
         },
         removeFavoriteRedux: (state, action) => {
             const index = action.payload;
             state.value.movies[index].favorite = false;
+            localStorage.setItem('user', JSON.stringify(state.value));
         },
         addRatingRedux: (state, action) => {
             const index = action.payload.index;
             state.value.movies[index].rating = action.payload.rating;
+            localStorage.setItem('user', JSON.stringify(state.value));
         },
         addNotesRedux: (state, action) => {
             const index = action.payload.index;
             state.value.movies[index].notes = action.payload.notes;
+            localStorage.setItem('user', JSON.stringify(state.value));
         },
     }
 });

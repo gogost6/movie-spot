@@ -27,23 +27,23 @@ const Home = () => {
         <>
             <img className="most-popular" src="https://help.matrisms.com/assets/img/popular_badge.png" />
             <div className="home">
-                <button className="btn" onClick={onClick}>Go to favourites</button>
+                {favoriteOnly.length > 0 ? <button className="btn" onClick={onClick}>Go to favourites</button> : ''}
                 <div className="home-img-wrapper">
                     {popularMovies.length > 0
                         ? popularMovies.map(x => <Link key={x.id} to={`/movies/${x.id}`}><img src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${x.poster_path}`} alt="img" /></Link>)
                         : ''}
                 </div>
             </div>
-            <div className="home two">
-                <div className="home-img-wrapper">
-                    {favoriteOnly.length > 0
-                        ? favoriteOnly.map(x =>
+            {favoriteOnly.length > 0
+                ? <div className="home two">
+                    <div className="home-img-wrapper">
+                        {favoriteOnly.map(x =>
                             <Link key={x.id} to={`/movies/${x.id}`}>
                                 <img src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2${x.poster_path}`} />
-                            </Link>)
-                        : ''}
+                            </Link>)}
+                    </div>
                 </div>
-            </div>
+                : ''}
         </>
     );
 }

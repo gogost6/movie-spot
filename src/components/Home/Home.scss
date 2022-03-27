@@ -7,6 +7,9 @@
 
     .home-img-wrapper {
         margin: 180px auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
 
         img {
             margin: 0 35px;

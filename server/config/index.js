@@ -13,12 +13,12 @@ const config = {
         },
     },
     production: {
-        PORT: process.env.PORT || 'https://movie-spot.vercel.app',
+        PORT: process.env.PORT || 'https://movie-spot-react.herokuapp.com/',
         COOKIE_NAME: "SESSION_DATA",
         TOKEN_SECRET: "very strong secret",
         SALT_ROUNDS: 10,
         CORS: {
-            origin: ["https://movie-spot.vercel.app"],
+            origin: ["https://movie-spot-react.herokuapp.com/"],
             credentials: true,
         },
     },

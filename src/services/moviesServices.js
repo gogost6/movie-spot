@@ -1,4 +1,4 @@
-let baseUrl = process.env.NODE_ENV == 'production' ? `https://movie-spot-react.herokuapp.com/movies` : 'http://localhost:5000/api/movies';
+let baseUrl = '/api/movies';
 
 export const addMovie = async (data) => {
     // in the data we need ---> email and name, rating, favorite, notes

@@ -1,4 +1,4 @@
-let baseUrl = process.env.NODE_ENV == 'production' ? `https://movie-spot-react.herokuapp.com/user` : 'http://localhost:5000/user';
+let baseUrl = process.env.NODE_ENV == 'production' ? `https://movie-spot-react.herokuapp.com/user` : 'http://localhost:5000/api/user';
 
 export const getUser = async () => {
     const response = await fetch(`${baseUrl}`, {

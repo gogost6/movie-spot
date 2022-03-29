@@ -14,5 +14,5 @@ module.exports = (app) => {
     app.use(auth());
     app.use(express.json());
 
-    app.use(routes);
+    app.use("/api", routes);
 };

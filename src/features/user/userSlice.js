@@ -17,23 +17,26 @@ const userSlice = createSlice({
     reducers: {
         getUser: (state, action) => {
             const user = JSON.parse(localStorage.getItem('user'));
-            if (user !== null && user.isLogged !== false) {
-                state.value = user;
-            } else if (user.isLogged === false) {
-                action.payload = {
-                    isLogged: false
-                }
-            }
 
-            if (user !== null && user.isAdmin) {
-                action.payload = {
-                    isAdmin: true,
-                    isLogged: true
-                };
-            } else if (user !== null && user.isLogged) {
-                action.payload = {
-                    isLogged: true
-                };
+            if(user !== null) {
+                if (user.isLogged !== false) {
+                    state.value = user;
+                } else if (user.isLogged === false) {
+                    action.payload = {
+                        isLogged: false
+                    }
+                }
+    
+                if (user.isAdmin) {
+                    action.payload = {
+                        isAdmin: true,
+                        isLogged: true
+                    };
+                } else if (user.isLogged) {
+                    action.payload = {
+                        isLogged: true
+                    };
+                }
             }
             localStorage.setItem('user', JSON.stringify(state.value));
         },

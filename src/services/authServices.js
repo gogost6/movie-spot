@@ -1,4 +1,4 @@
-let baseUrl = 'http://localhost:5000/user';
+let baseUrl = `${process.env.PORT || 'http://localhost:5000'}/user`;
 
 export const getUser = async () => {
     const response = await fetch(`${baseUrl}`, {

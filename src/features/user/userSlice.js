@@ -18,7 +18,7 @@ const userSlice = createSlice({
         getUser: (state, action) => {
             const user = JSON.parse(localStorage.getItem('user'));
 
-            if(user !== null) {
+            if (user !== null) {
                 if (user.isLogged !== false) {
                     state.value = user;
                 } else if (user.isLogged === false) {
@@ -26,7 +26,7 @@ const userSlice = createSlice({
                         isLogged: false
                     }
                 }
-    
+
                 if (user.isAdmin) {
                     action.payload = {
                         isAdmin: true,
@@ -37,6 +37,10 @@ const userSlice = createSlice({
                         isLogged: true
                     };
                 }
+            } else {
+                action.payload = {
+                    isLogged: true
+                };
             }
             localStorage.setItem('user', JSON.stringify(state.value));
         },
@@ -49,7 +53,7 @@ const userSlice = createSlice({
                 state.value.isLogged = true;
             }
 
-            if(state.value._id === "" && user !== null && user._id === "" && user.movies.length > 0) {
+            if (state.value._id === "" && user !== null && user._id === "" && user.movies.length > 0) {
                 state.value = user;
             }
 

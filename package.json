@@ -21,6 +21,7 @@
         "redux": "^4.1.2",
         "web-vitals": "^2.1.4"
     },
+    "proxy": "http://localhost:5000",
     "scripts": {
         "heroku-postbuild": "cd server && npm install && cd ../ && npm install && npm run build",
         "start": "react-scripts start",

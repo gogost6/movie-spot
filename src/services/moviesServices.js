@@ -1,4 +1,4 @@
-let baseUrl = process.env.NODE_ENV == 'production' ? `https://movie-spot.vercel.app/movies` : 'http://localhost:5000/movies';
+let baseUrl = process.env.NODE_ENV == 'production' ? `https://movie-spot-react.herokuapp.com/movies` : 'http://localhost:5000/movies';
 
 export const addMovie = async (data) => {
     // in the data we need ---> email and name, rating, favorite, notes

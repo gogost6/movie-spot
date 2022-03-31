@@ -54,16 +54,16 @@ router.post(
                 throw errors.map((e) => e.msg);
             }
 
-            const existingByEmail = await userService.getUserByEmail(email);
-            const existingByUsername = await userService.getUserByUsername(username);
+            // const existingByEmail = await userService.getUserByEmail(email);
+            // const existingByUsername = await userService.getUserByUsername(username);
 
-            if (existingByEmail) {
-                throw "Email is registered already";
-            }
+            // if (existingByEmail) {
+            //     throw "Email is registered already";
+            // }
 
-            if (existingByUsername) {
-                throw "Username is taken!";
-            }
+            // if (existingByUsername) {
+            //     throw "Username is taken!";
+            // }
 
             const hashedPassword = await bcrypt.hash(password, 10);
             const user = await userService.createUser(

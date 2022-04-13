@@ -8,6 +8,8 @@ When you add a new film to favorites and then register, it will
 automatically be added to your profile! This is also true for
 the notes and the rating.
 
+# Host link: https://movie-spot-react.herokuapp.com/
+
 ## How to start it
 
 <ol>
